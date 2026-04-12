@@ -1,4 +1,5 @@
 const startButton = document.getElementById('startButton');
+const sideBtn = document.getElementById('sideBtn');
 const phaseLabel = document.getElementById('phaseLabel');
 const timerLabel = document.getElementById('timerLabel');
 const breathingRing = document.getElementById('breathingRing');
@@ -22,7 +23,6 @@ function sleep(ms) {
 function setRing(phase) {
   breathingRing.style.transform = `scale(${phase.scale})`;
 
-  // Smooth emotional tone
   breathingRing.style.filter =
     phase.name === 'Exhale'
       ? 'saturate(0.9) brightness(0.95)'
@@ -34,13 +34,13 @@ function setRing(phase) {
 
 async function runPhase(phase) {
   const phaseLabels = {
-  "Inhale": "Breathe In",
-  "Hold In": "Hold",
-  "Exhale": "Breathe Out",
-  "Hold Out": "Pause"
-};
+    'Inhale': 'Breathe In',
+    'Hold In': 'Hold',
+    'Exhale': 'Breathe Out',
+    'Hold Out': 'Pause'
+  };
 
-phaseLabel.textContent = phaseLabels[phase.name];
+  phaseLabel.textContent = phaseLabels[phase.name];
   setRing(phase);
 
   for (let remaining = phase.seconds; remaining >= 1; remaining--) {
@@ -49,14 +49,22 @@ phaseLabel.textContent = phaseLabels[phase.name];
   }
 }
 
-async function runSession() {
+async function runSession(durationMinutes = 1) {
   if (running) return;
+
   running = true;
   startButton.disabled = true;
+  sideBtn.disabled = true;
   startButton.textContent = 'Breathing...';
 
-  for (const phase of phases) {
-    await runPhase(phase);
+  const totalSessionMs = durationMinutes * 60 * 1000;
+  const cycleMs = phases.reduce((sum, phase) => sum + (phase.seconds * 1000), 0);
+  const totalCycles = Math.ceil(totalSessionMs / cycleMs);
+
+  for (let cycle = 0; cycle < totalCycles; cycle++) {
+    for (const phase of phases) {
+      await runPhase(phase);
+    }
   }
 
   sessions += 1;
@@ -67,8 +75,10 @@ async function runSession() {
   deviceLed.style.background = 'rgba(255,255,255,0.45)';
   deviceLed.style.boxShadow = '0 0 0 rgba(109, 199, 193, 0.7)';
   startButton.disabled = false;
+  sideBtn.disabled = false;
   startButton.textContent = 'Start Regulate';
   running = false;
 }
 
-startButton.addEventListener('click', runSession);
+startButton.addEventListener('click', () => runSession(1));
+sideBtn.addEventListener('click', () => runSession(3));

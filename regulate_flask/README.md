@@ -1,56 +1,74 @@
-# Regulate: A One-Touch Nervous System Reset
+# Regulate  
+### A One-Touch Nervous System Reset
 
-This is a small Flask prototype that presents an interactive concept for **Regulate**, a button-based breathing intervention designed to support stress regulation and focus in high-demand environments.
+An interactive prototype demonstrating a simple, hardware-inspired intervention designed to help users regulate stress in real time through guided box breathing.
 
-## Project files
+---
 
-- `app.py` - Flask app entry point
-- `templates/index.html` - main interactive page
-- `static/style.css` - styling for the prototype
-- `static/script.js` - breathing cycle animation logic
-- `README.md` - project overview and run instructions
+## 🧠 Concept
 
-## Concept summary
+**Regulate** is a single-button device concept that delivers a structured breathing exercise using visual cues. The goal is to provide a fast, accessible way to reset focus and reduce stress during high-demand moments—without requiring apps, screens, or cognitive effort.
 
-**Regulate** is a one-touch nervous system reset. A user presses a button and receives a guided **box breathing** cycle using light-based visual cues.
+This prototype simulates that experience using a web interface powered by Flask.
 
-### Intended use
-- Interrupt stress in real time
-- Reduce cognitive load
-- Restore focus without leaving workflow
-- Demonstrate how a simple hardware concept could become a practical wellness intervention
+---
 
-## Features in this prototype
+## ⚙️ Features
 
-- Polished hero section with concept framing
-- Interactive “Start Regulate” button
-- Animated breathing circle for inhale, hold, exhale, hold
-- Simulated LED status light
-- Concept metrics and workflow explanation
+- **One-touch activation**
+  - Starts a guided 4-4-4-4 breathing cycle
 
-## How to run in GitHub Codespaces
+- **Quick Reset Mode (3 minutes)**
+  - Secondary button triggers a full 3-minute session
 
-1. Open the project folder in Codespaces.
-2. Open the terminal.
-3. Install Flask if needed:
-   ```bash
-   pip install flask
-   ```
-4. Run the app:
-   ```bash
-   python app.py
-   ```
-5. Open the forwarded port for `5000` in the browser.
+- **Real-time visual guidance**
+  - Expanding/contracting ring simulates breath pacing  
+  - LED-style color changes indicate inhale, hold, exhale, pause  
 
-## Suggested submission framing
+- **Dual feedback system**
+  - Text prompts (Breathe In, Hold, Breathe Out, Pause)  
+  - Visual cues (scale, color, glow)
 
-You can present this as a **digital concept prototype** that demonstrates both:
-- the written intervention idea
-- the interactive user experience
+- **Session tracking**
+  - Counts completed breathing sessions
 
-## Optional enhancements
+---
 
-- Add a second mode for a 2-minute or 3-minute reset
-- Add a soft sound cue option
-- Log session starts or completions
-- Add a sketch of the physical button device
+## 🔄 How It Works
+
+1. User presses the main button  
+2. System initiates a timed breathing cycle  
+3. Visual cues guide inhale → hold → exhale → hold  
+4. Cycle repeats based on session duration  
+5. User reaches a “reset state”  
+
+---
+
+## 🧩 Device Mapping (Concept → Prototype)
+
+| Device Component       | Prototype Representation        |
+|----------------------|--------------------------------|
+| GPIO Button          | Start + Quick Reset buttons     |
+| Microcontroller      | JavaScript timing logic         |
+| NeoPixel LED         | Color-changing UI element       |
+| Breathing feedback   | Animated ring + text prompts    |
+| USB power            | Browser-based interface         |
+
+---
+
+## 📊 Intended Impact
+
+This concept is designed to support:
+
+- Faster recovery from stress  
+- Improved focus and cognitive clarity  
+- Increased use of short, intentional resets  
+- Reduced cognitive overload in high-demand environments  
+
+---
+
+## 🚀 Running the App (Codespaces or Local)
+
+### 1. Install Flask
+```bash
+pip install flask
