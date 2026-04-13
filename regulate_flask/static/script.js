@@ -46,25 +46,41 @@ function setRing(phase) {
   deviceLed.style.boxShadow = phase.shadow;
 }
 
-function resetUI(stoppedEarly = false) {
+function setIdleState(message = 'Press the button to begin') {
   breathingRing.style.transform = 'scale(1)';
   breathingRing.style.filter = 'saturate(1) brightness(1)';
   deviceLed.style.background = 'rgba(255,255,255,0.45)';
   deviceLed.style.boxShadow = '0 0 18px rgba(109, 199, 193, 0.7)';
-
-  if (stoppedEarly) {
-    phaseLabel.textContent = 'Stopped';
-    timerLabel.textContent = 'Session ended early';
-  } else {
-    phaseLabel.textContent = 'Reset Complete';
-    timerLabel.textContent = 'Nice. Press again any time.';
-    sessions += 1;
-    sessionCountEl.textContent = sessions;
-  }
-
+  phaseLabel.textContent = 'Ready';
+  timerLabel.textContent = message;
   startButton.textContent = 'Regulate';
   running = false;
   stopRequested = false;
+}
+
+function setCompletedState() {
+  breathingRing.style.transform = 'scale(1)';
+  breathingRing.style.filter = 'saturate(1) brightness(1)';
+  deviceLed.style.background = 'rgba(255,255,255,0.45)';
+  deviceLed.style.boxShadow = '0 0 18px rgba(109, 199, 193, 0.7)';
+  phaseLabel.textContent = 'Reset Complete';
+  timerLabel.textContent = 'Nice. Press again any time.';
+  startButton.textContent = 'Regulate';
+  running = false;
+  stopRequested = false;
+
+  sessions += 1;
+  sessionCountEl.textContent = sessions;
+}
+
+function triggerSideGlow() {
+  sideBtn.classList.remove('active-press');
+  void sideBtn.offsetWidth; // restart animation
+  sideBtn.classList.add('active-press');
+
+  setTimeout(() => {
+    sideBtn.classList.remove('active-press');
+  }, 600);
 }
 
 async function runPhase(phase, getRemainingTime) {
@@ -77,6 +93,8 @@ async function runPhase(phase, getRemainingTime) {
     const totalRemaining = getRemainingTime();
     timerLabel.textContent = `${phaseLabels[phase.name]} • ${formatTime(totalRemaining)}`;
     await sleep(1000);
+
+    if (stopRequested) return false;
   }
 
   return true;
@@ -90,10 +108,9 @@ async function runSession(durationMinutes = 1) {
   startButton.textContent = 'Stop';
 
   if (durationMinutes === 3) {
+    triggerSideGlow();
     deviceLed.style.background = '#7fb4e8';
     deviceLed.style.boxShadow = '0 0 22px rgba(127,180,232,0.65)';
-    sideBtn.classList.add('active-press');
-    setTimeout(() => sideBtn.classList.remove('active-press'), 600);
   }
 
   const totalSessionSeconds = durationMinutes * 60;
@@ -104,22 +121,32 @@ async function runSession(durationMinutes = 1) {
 
   for (let cycle = 0; cycle < totalCycles; cycle++) {
     for (const phase of phases) {
-      if (stopRequested || elapsedSeconds >= totalSessionSeconds) break;
+      if (stopRequested || elapsedSeconds >= totalSessionSeconds) {
+        break;
+      }
 
       const completed = await runPhase(
         phase,
         () => Math.max(totalSessionSeconds - elapsedSeconds, 0)
       );
 
-      if (!completed || stopRequested) break;
+      if (!completed || stopRequested) {
+        break;
+      }
 
       elapsedSeconds += phase.seconds;
     }
 
-    if (stopRequested || elapsedSeconds >= totalSessionSeconds) break;
+    if (stopRequested || elapsedSeconds >= totalSessionSeconds) {
+      break;
+    }
   }
 
-  resetUI(stopRequested);
+  if (stopRequested) {
+    setIdleState('Press Button to Begin');
+  } else {
+    setCompletedState();
+  }
 }
 
 startButton.addEventListener('click', () => {
@@ -139,3 +166,6 @@ sideBtn.addEventListener('click', () => {
 
   runSession(3);
 });
+
+// initialize UI
+setIdleState();

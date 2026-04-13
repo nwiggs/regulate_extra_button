@@ -17,8 +17,8 @@
         <h1>Regulate</h1>
         <p class="subtitle">A One-Touch Nervous System Reset</p>
         <p class="hero-text">
-          A single-button intervention that guides users through box breathing to reduce stress,
-          restore focus, and support performance during high-demand moments.
+          A single-button intervention that guides users through box breathing to
+          reduce stress, restore focus, and support performance in high-demand moments.
         </p>
         <div class="hero-tags">
           <span>Box breathing</span>
@@ -27,119 +27,124 @@
         </div>
       </div>
 
-  <div class="device-card">
-    <div class="device-shell">
-      <button id="sideBtn" class="side-button" type="button" aria-label="3 minute reset">
-      3 MIN
-    </button>
+      <div class="device-card">
+        <div class="device-shell">
+          <button id="sideBtn" class="side-button" type="button" aria-label="3 minute reset">
+            3 MIN
+          </button>
 
-    <div class="device-body">
-      <div class="device-led" id="deviceLed"></div>
-      <button class="device-button" id="startButton" type="button">Regulate</button>
-      <p class="device-caption">
-        Press Regulate to start or stop • Side button activates a full 3-minute reset
-      </p>
-    </div>
-  </div>
-</div>
-
-    <main class="content-grid">
-      <section class="panel breathing-panel">
-        <div class="panel-heading">
-          <h2>Live Breathing Demo</h2>
-          <p>Watch the light and follow the pacing.</p>
-        </div>
-
-        <div class="breathing-stage">
-          <div class="breathing-ring" id="breathingRing"></div>
-          <div class="breathing-center">
-            <p class="phase-label" id="phaseLabel">Ready</p>
-            <p class="timer-label" id="timerLabel">Press the button to begin</p>
+          <div class="device-body">
+            <div class="device-led" id="deviceLed"></div>
+            <button class="device-button" id="startButton" type="button">Regulate</button>
+            <p class="device-caption">
+              Nervous System Reset
+            </p>
           </div>
         </div>
+      </div>
+    </header>
 
-        <div class="phase-strip">
-          <div class="phase-pill">Breathe In</div>
-          <div class="phase-pill">Hold</div>
-          <div class="phase-pill">Breathe Out</div>
-          <div class="phase-pill">Hold</div>
-        </div>
-      </section>
-
-      <section class="panel info-panel">
-        <div class="panel-heading">
-          <h2>Why it matters</h2>
-          <p>Designed for moments when people need a reset without leaving workflow.</p>
-        </div>
-
-        <div class="info-block">
-          <h3>The problem</h3>
-          <ul>
-            <li>Stress accumulates during fast-paced work.</li>
-            <li>People often skip breaks or push through overload.</li>
-            <li>There is rarely an immediate, structured way to reset.</li>
-          </ul>
-        </div>
-
-        <div class="info-block">
-          <h3>The intervention</h3>
-          <ul>
-            <li>One touch starts a guided breathing cycle.</li>
-            <li>LED-style visuals reduce the need to think or count.</li>
-            <li>The experience is short, calming, and easy to repeat.</li>
-          </ul>
-        </div>
-      </section>
-
-      <section class="panel metrics-panel">
-        <div class="panel-heading">
-          <h2>Concept Outcomes</h2>
-          <p>Example measures a prototype like this could support.</p>
-        </div>
-
-        <div class="metric-grid">
-          <div class="metric-card">
-            <span class="metric-number">60–120s</span>
-            <span class="metric-label">Micro-reset duration</span>
+    <main>
+      <div class="top-grid">
+        <section class="panel breathing-panel">
+          <div class="panel-heading">
+            <h2>Live Breathing Demo</h2>
+            <p>Watch the light and follow the pacing.</p>
           </div>
-          <div class="metric-card">
-            <span class="metric-number">1 touch</span>
-            <span class="metric-label">Activation effort</span>
-          </div>
-          <div class="metric-card">
-            <span class="metric-number">4-4-4-4</span>
-            <span class="metric-label">Breathing cadence</span>
-          </div>
-          <div class="metric-card">
-            <span class="metric-number" id="sessionCount">0</span>
-            <span class="metric-label">Demo sessions completed</span>
-          </div>
-        </div>
-      </section>
 
-      <section class="panel flow-panel">
-        <div class="panel-heading">
-          <h2>How it works</h2>
-          <p>A hardware-inspired workflow translated into a simple web prototype.</p>
-        </div>
+          <div class="breathing-stage">
+            <div class="breathing-ring" id="breathingRing"></div>
+            <div class="breathing-center">
+              <p class="phase-label" id="phaseLabel">Ready</p>
+              <p class="timer-label" id="timerLabel">Press the button to begin</p>
+            </div>
+          </div>
 
-        <div class="flow-row">
-          <div class="flow-step">Button press</div>
-          <div class="flow-arrow">→</div>
-          <div class="flow-step">Guided light cycle</div>
-          <div class="flow-arrow">→</div>
-          <div class="flow-step">Box breathing</div>
-          <div class="flow-arrow">→</div>
-          <div class="flow-step">Reset state</div>
-        </div>
+          <div class="phase-strip">
+            <div class="phase-pill">Breathe In</div>
+            <div class="phase-pill">Hold</div>
+            <div class="phase-pill">Breathe Out</div>
+            <div class="phase-pill">Hold</div>
+          </div>
+        </section>
 
-        <div class="device-list">
-          <div><strong>GPIO Button:</strong> starts/stops the cycle</div>
-          <div><strong>Microcontroller:</strong> controls timing logic</div>
-          <div><strong>NeoPixel LED:</strong> guides breath in, hold, breath out, hold</div>
-          <div><strong>USB Power:</strong> keeps the device simple and portable</div>
-        </div>
-      </section>
+        <section class="panel info-panel">
+          <div class="panel-heading">
+            <h2>Why it matters</h2>
+            <p>Designed for moments when people need a reset without leaving workflow.</p>
+          </div>
+
+          <div class="info-block">
+            <h3>The problem</h3>
+            <ul>
+              <li>Stress accumulates during fast-paced work.</li>
+              <li>People often skip breaks or push through overload.</li>
+              <li>There is rarely an immediate, structured way to reset.</li>
+            </ul>
+          </div>
+
+          <div class="info-block">
+            <h3>The intervention</h3>
+            <ul>
+              <li>One touch starts a guided breathing cycle.</li>
+              <li>LED-style visuals reduce the need to think or count.</li>
+              <li>The experience is short, calming, and easy to repeat.</li>
+            </ul>
+          </div>
+        </section>
+      </div>
+
+      <div class="full-width-stack">
+        <section class="panel metrics-panel">
+          <div class="panel-heading">
+            <h2>Concept Outcomes</h2>
+            <p>Example measures a prototype like this could support.</p>
+          </div>
+
+          <div class="metric-grid">
+            <div class="metric-card">
+              <span class="metric-number">60–120s</span>
+              <span class="metric-label">Micro-reset duration</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-number">1 touch</span>
+              <span class="metric-label">Activation effort</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-number">4-4-4-4</span>
+              <span class="metric-label">Breathing cadence</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-number" id="sessionCount">0</span>
+              <span class="metric-label">Demo sessions completed</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel flow-panel">
+          <div class="panel-heading">
+            <h2>How it works</h2>
+            <p>A hardware-inspired workflow translated into a simple web prototype.</p>
+          </div>
+
+          <div class="flow-row">
+            <div class="flow-step">Button press</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">Guided light cycle</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">Box breathing</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">Reset state</div>
+          </div>
+
+          <div class="device-list">
+            <div><strong>GPIO Button:</strong> starts the cycle</div>
+            <div><strong>Microcontroller:</strong> controls timing logic</div>
+            <div><strong>NeoPixel LED:</strong> visually guides the 4-4-4-4 breathwork cycle</div>
+            <div><strong>USB Power:</strong> keeps the device simple and portable</div>
+          </div>
+        </section>
+      </div>
     </main>
   </div>
 

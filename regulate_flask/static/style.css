@@ -26,7 +26,7 @@ body {
 }
 
 .page-shell {
-  width: min(1200px, calc(100% - 48px));
+  width: min(1300px, calc(100% - 48px));
   margin: 32px auto 48px;
 }
 
@@ -115,21 +115,22 @@ h1 {
   text-align: center;
   position: relative;
   z-index: 2;
+  transition: box-shadow 0.6s ease;
 }
 
 .device-led {
-  width: 22px;
-  height: 22px;
+  width: 50px;
+  height: 50px;
   margin: 0 auto 20px;
   border-radius: 50%;
   background: rgba(255,255,255,0.45);
-  box-shadow: 0 0 18px rgba(109, 199, 193, 0.7);
+  box-shadow: 0 0 10px rgba(109,199,193,0.4);
   transition: background 0.6s ease, box-shadow 0.6s ease;
   animation: idlePulse 3s ease-in-out infinite;
 }
 
 .device-button {
-  width: 100%;
+  width: 75%;
   border: 0;
   border-radius: 16px;
   padding: 14px 18px;
@@ -147,8 +148,8 @@ h1 {
   transform: translateY(-1px);
 }
 
-.device-button:disabled,
-.side-button:disabled {
+.side-button:disabled,
+.device-button:disabled {
   opacity: 0.65;
   cursor: not-allowed;
   transform: none;
@@ -156,13 +157,14 @@ h1 {
 
 .side-button {
   position: absolute;
-  right: -5px;
+  right: -6px;
   top: 50%;
   transform: translateY(-50%);
   width: 25px;
   height: 100px;
   border: 1px solid rgba(255,255,255,0.12);
   border-left: none;
+  border-right: 2px solid rgba(0,0,0,0.25);
   border-radius: 0 16px 16px 0;
   background: linear-gradient(180deg, rgba(127,180,232,0.95), rgba(94,140,190,0.95));
   color: #04101b;
@@ -178,7 +180,6 @@ h1 {
   box-shadow: 8px 10px 24px rgba(0,0,0,0.22);
   z-index: 1;
   transition: transform 0.2s ease, box-shadow 0.25s ease, opacity 0.2s ease;
-  border-right: 2px solid rgba(0,0,0,0.25);
 }
 
 .side-button:hover {
@@ -193,10 +194,17 @@ h1 {
   line-height: 1.5;
 }
 
-.content-grid {
+.top-grid {
   margin-top: 24px;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  align-items: stretch;
+}
+
+.full-width-stack {
+  margin-top: 22px;
+  display: grid;
   gap: 22px;
 }
 
@@ -286,7 +294,7 @@ h1 {
 .metric-grid {
   margin-top: 20px;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 14px;
 }
 
@@ -367,14 +375,20 @@ h1 {
   }
 }
 
+@media (max-width: 1100px) {
+  .metric-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 900px) {
   .hero-card,
-  .content-grid {
+  .top-grid {
     grid-template-columns: 1fr;
   }
 
   .page-shell {
-    width: min(100% - 24px, 1200px);
+    width: min(100% - 24px, 1300px);
     margin: 20px auto 28px;
   }
 
@@ -397,8 +411,14 @@ h1 {
   }
 
   .side-button {
-    right: -14px;
+    right: -6px;
     width: 46px;
     height: 92px;
+  }
+}
+
+@media (max-width: 640px) {
+  .metric-grid {
+    grid-template-columns: 1fr;
   }
 }
