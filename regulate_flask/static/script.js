@@ -8,6 +8,7 @@ const sessionCountEl = document.getElementById('sessionCount');
 
 let running = false;
 let sessions = 0;
+let stopRequested = false;
 
 const phases = [
   { name: 'Inhale', seconds: 4, scale: 1.28, led: '#9be7e0', shadow: '0 0 24px rgba(155,231,224,0.6)' },
@@ -45,28 +46,54 @@ function setRing(phase) {
   deviceLed.style.boxShadow = phase.shadow;
 }
 
+function resetUI(stoppedEarly = false) {
+  breathingRing.style.transform = 'scale(1)';
+  breathingRing.style.filter = 'saturate(1) brightness(1)';
+  deviceLed.style.background = 'rgba(255,255,255,0.45)';
+  deviceLed.style.boxShadow = '0 0 18px rgba(109, 199, 193, 0.7)';
+
+  if (stoppedEarly) {
+    phaseLabel.textContent = 'Stopped';
+    timerLabel.textContent = 'Session ended early';
+  } else {
+    phaseLabel.textContent = 'Reset Complete';
+    timerLabel.textContent = 'Nice. Press again any time.';
+    sessions += 1;
+    sessionCountEl.textContent = sessions;
+  }
+
+  startButton.textContent = 'Regulate';
+  running = false;
+  stopRequested = false;
+}
+
 async function runPhase(phase, getRemainingTime) {
   phaseLabel.textContent = phaseLabels[phase.name];
   setRing(phase);
 
   for (let remaining = phase.seconds; remaining >= 1; remaining--) {
+    if (stopRequested) return false;
+
     const totalRemaining = getRemainingTime();
-    timerLabel.textContent = `Phase: ${remaining}s • Session: ${formatTime(totalRemaining)}`;
+    timerLabel.textContent = `${phaseLabels[phase.name]} • ${formatTime(totalRemaining)}`;
     await sleep(1000);
   }
+
+  return true;
 }
 
 async function runSession(durationMinutes = 1) {
   if (running) return;
 
   running = true;
-  startButton.disabled = true;
-  sideBtn.disabled = true;
-  startButton.textContent = 'Breathing...';
+  stopRequested = false;
+  startButton.textContent = 'Stop';
 
   if (durationMinutes === 3) {
     deviceLed.style.background = '#7fb4e8';
-    deviceLed.style.boxShadow = '0 0 30px rgba(127,180,232,0.8)';
+    deviceLed.style.boxShadow = '0 0 22px rgba(127,180,232,0.65)';
+    sideBtn.classList.add('active-press');
+    setTimeout(() => sideBtn.classList.remove('active-press'), 600);
   }
 
   const totalSessionSeconds = durationMinutes * 60;
@@ -77,38 +104,38 @@ async function runSession(durationMinutes = 1) {
 
   for (let cycle = 0; cycle < totalCycles; cycle++) {
     for (const phase of phases) {
-      if (elapsedSeconds >= totalSessionSeconds) break;
+      if (stopRequested || elapsedSeconds >= totalSessionSeconds) break;
 
-      await runPhase(phase, () => Math.max(totalSessionSeconds - elapsedSeconds, 0));
+      const completed = await runPhase(
+        phase,
+        () => Math.max(totalSessionSeconds - elapsedSeconds, 0)
+      );
+
+      if (!completed || stopRequested) break;
+
       elapsedSeconds += phase.seconds;
     }
+
+    if (stopRequested || elapsedSeconds >= totalSessionSeconds) break;
   }
 
-  sessions += 1;
-  sessionCountEl.textContent = sessions;
-  phaseLabel.textContent = 'Reset Complete';
-  timerLabel.textContent = 'Nice. Press again any time.';
-  breathingRing.style.transform = 'scale(1)';
-  breathingRing.style.filter = 'saturate(1) brightness(1)';
-  deviceLed.style.background = 'rgba(255,255,255,0.45)';
-  deviceLed.style.boxShadow = '0 0 18px rgba(109, 199, 193, 0.7)';
-  startButton.disabled = false;
-  sideBtn.disabled = false;
-  startButton.textContent = 'Start Regulate';
-  running = false;
+  resetUI(stopRequested);
 }
 
-startButton.addEventListener('click', () => runSession(1));
+startButton.addEventListener('click', () => {
+  if (running) {
+    stopRequested = true;
+    return;
+  }
+
+  runSession(1);
+});
 
 sideBtn.addEventListener('click', () => {
-  sideBtn.classList.add('active-press');
-
-  deviceLed.style.background = '#7fb4e8';
-  deviceLed.style.boxShadow = '0 0 35px rgba(127,180,232,0.9)';
-
-  setTimeout(() => {
-    sideBtn.classList.remove('active-press');
-  }, 600);
+  if (running) {
+    stopRequested = true;
+    return;
+  }
 
   runSession(3);
 });

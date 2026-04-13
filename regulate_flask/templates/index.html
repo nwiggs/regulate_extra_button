@@ -27,22 +27,21 @@
         </div>
       </div>
 
-      <div class="device-card">
-        <div class="device-shell">
-          <button id="sideBtn" class="side-button" type="button" aria-label="3 minute reset">
-            3 MIN
-          </button>
+  <div class="device-card">
+    <div class="device-shell">
+      <button id="sideBtn" class="side-button" type="button" aria-label="3 minute reset">
+      3 MIN
+    </button>
 
-          <div class="device-body">
-            <div class="device-led" id="deviceLed"></div>
-            <button class="device-button" id="startButton" type="button">Start Regulate</button>
-            <p class="device-caption">
-              Press to begin • Side button activates a full 3-minute reset
-            </p>
-          </div>
-        </div>
-      </div>
-    </header>
+    <div class="device-body">
+      <div class="device-led" id="deviceLed"></div>
+      <button class="device-button" id="startButton" type="button">Regulate</button>
+      <p class="device-caption">
+        Press Regulate to start or stop • Side button activates a full 3-minute reset
+      </p>
+    </div>
+  </div>
+</div>
 
     <main class="content-grid">
       <section class="panel breathing-panel">
@@ -60,10 +59,10 @@
         </div>
 
         <div class="phase-strip">
-          <div class="phase-pill">Inhale</div>
-          <div class="phase-pill">Hold In</div>
-          <div class="phase-pill">Exhale</div>
-          <div class="phase-pill">Hold Out</div>
+          <div class="phase-pill">Breathe In</div>
+          <div class="phase-pill">Hold</div>
+          <div class="phase-pill">Breathe Out</div>
+          <div class="phase-pill">Hold</div>
         </div>
       </section>
 
@@ -135,9 +134,9 @@
         </div>
 
         <div class="device-list">
-          <div><strong>GPIO Button:</strong> starts the cycle</div>
+          <div><strong>GPIO Button:</strong> starts/stops the cycle</div>
           <div><strong>Microcontroller:</strong> controls timing logic</div>
-          <div><strong>NeoPixel LED:</strong> guides inhale, hold, exhale, hold</div>
+          <div><strong>NeoPixel LED:</strong> guides breath in, hold, breath out, hold</div>
           <div><strong>USB Power:</strong> keeps the device simple and portable</div>
         </div>
       </section>

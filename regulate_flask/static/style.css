@@ -156,10 +156,10 @@ h1 {
 
 .side-button {
   position: absolute;
-  right: -12px;
+  right: -5px;
   top: 50%;
   transform: translateY(-50%);
-  width: 52px;
+  width: 25px;
   height: 100px;
   border: 1px solid rgba(255,255,255,0.12);
   border-left: none;
