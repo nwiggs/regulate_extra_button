@@ -5,7 +5,7 @@ An interactive prototype demonstrating a simple, hardware-inspired intervention 
 
 ---
 
-## 🧠 Concept
+##  Concept
 
 **Regulate** is a single-button device concept that delivers a structured breathing exercise using visual cues. The goal is to provide a fast, accessible way to reset focus and reduce stress during high-demand moments—without requiring apps, screens, or cognitive effort.
 
@@ -13,7 +13,7 @@ This prototype simulates that experience using a web interface powered by Flask.
 
 ---
 
-## ⚙️ Features
+##  Features
 
 - **One-touch activation**
   - Starts a guided 4-4-4-4 breathing cycle
@@ -34,7 +34,7 @@ This prototype simulates that experience using a web interface powered by Flask.
 
 ---
 
-## 🔄 How It Works
+##  How It Works
 
 1. User presses the main button  
 2. System initiates a timed breathing cycle  
@@ -44,7 +44,7 @@ This prototype simulates that experience using a web interface powered by Flask.
 
 ---
 
-## 🧩 Device Mapping (Concept → Prototype)
+##  Device Mapping (Concept → Prototype)
 
 | Device Component       | Prototype Representation        |
 |----------------------|--------------------------------|
@@ -56,7 +56,7 @@ This prototype simulates that experience using a web interface powered by Flask.
 
 ---
 
-## 📊 Intended Impact
+##  Intended Impact
 
 This concept is designed to support:
 
@@ -67,7 +67,7 @@ This concept is designed to support:
 
 ---
 
-## 🚀 Running the App (Codespaces or Local)
+##  Running the App (Codespaces or Local)
 
 ### 1. Install Flask
 ```bash
