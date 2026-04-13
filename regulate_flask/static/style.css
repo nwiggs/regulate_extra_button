@@ -125,6 +125,7 @@ h1 {
   background: rgba(255,255,255,0.45);
   box-shadow: 0 0 18px rgba(109, 199, 193, 0.7);
   transition: background 0.6s ease, box-shadow 0.6s ease;
+  animation: idlePulse 3s ease-in-out infinite;
 }
 
 .device-button {
@@ -155,7 +156,7 @@ h1 {
 
 .side-button {
   position: absolute;
-  right: -18px;
+  right: -12px;
   top: 50%;
   transform: translateY(-50%);
   width: 52px;
@@ -177,6 +178,7 @@ h1 {
   box-shadow: 8px 10px 24px rgba(0,0,0,0.22);
   z-index: 1;
   transition: transform 0.2s ease, box-shadow 0.25s ease, opacity 0.2s ease;
+  border-right: 2px solid rgba(0,0,0,0.25);
 }
 
 .side-button:hover {
@@ -342,8 +344,8 @@ h1 {
     transform: translateY(-50%) translateX(0);
   }
   30% {
-    box-shadow: 0 0 25px rgba(127,180,232,0.9),
-                0 0 50px rgba(127,180,232,0.6);
+    box-shadow: 0 0 18px rgba(127,180,232,0.7),
+                0 0 35px rgba(127,180,232,0.45);
     transform: translateY(-50%) translateX(3px);
   }
   100% {
@@ -354,6 +356,15 @@ h1 {
 
 .side-button.active-press {
   animation: sidePressGlow 0.6s ease;
+}
+
+@keyframes idlePulse {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(109,199,193,0.4);
+  }
+  50% {
+    box-shadow: 0 0 18px rgba(109,199,193,0.7);
+  }
 }
 
 @media (max-width: 900px) {
