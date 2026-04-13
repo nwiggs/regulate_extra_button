@@ -16,8 +16,21 @@ const phases = [
   { name: 'Hold Out', seconds: 4, scale: 0.9, led: '#bdedeb', shadow: '0 0 20px rgba(189,237,235,0.5)' }
 ];
 
+const phaseLabels = {
+  Inhale: 'Breathe In',
+  'Hold In': 'Hold',
+  Exhale: 'Breathe Out',
+  'Hold Out': 'Pause'
+};
+
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function formatTime(totalSeconds) {
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  return `${minutes}:${String(seconds).padStart(2, '0')}`;
 }
 
 function setRing(phase) {
@@ -32,19 +45,13 @@ function setRing(phase) {
   deviceLed.style.boxShadow = phase.shadow;
 }
 
-async function runPhase(phase) {
-  const phaseLabels = {
-    'Inhale': 'Breathe In',
-    'Hold In': 'Hold',
-    'Exhale': 'Breathe Out',
-    'Hold Out': 'Pause'
-  };
-
+async function runPhase(phase, getRemainingTime) {
   phaseLabel.textContent = phaseLabels[phase.name];
   setRing(phase);
 
   for (let remaining = phase.seconds; remaining >= 1; remaining--) {
-    timerLabel.textContent = `${remaining}s`;
+    const totalRemaining = getRemainingTime();
+    timerLabel.textContent = `Phase: ${remaining}s • Session: ${formatTime(totalRemaining)}`;
     await sleep(1000);
   }
 }
@@ -57,13 +64,23 @@ async function runSession(durationMinutes = 1) {
   sideBtn.disabled = true;
   startButton.textContent = 'Breathing...';
 
-  const totalSessionMs = durationMinutes * 60 * 1000;
-  const cycleMs = phases.reduce((sum, phase) => sum + (phase.seconds * 1000), 0);
-  const totalCycles = Math.ceil(totalSessionMs / cycleMs);
+  if (durationMinutes === 3) {
+    deviceLed.style.background = '#7fb4e8';
+    deviceLed.style.boxShadow = '0 0 30px rgba(127,180,232,0.8)';
+  }
+
+  const totalSessionSeconds = durationMinutes * 60;
+  const cycleSeconds = phases.reduce((sum, phase) => sum + phase.seconds, 0);
+  const totalCycles = Math.ceil(totalSessionSeconds / cycleSeconds);
+
+  let elapsedSeconds = 0;
 
   for (let cycle = 0; cycle < totalCycles; cycle++) {
     for (const phase of phases) {
-      await runPhase(phase);
+      if (elapsedSeconds >= totalSessionSeconds) break;
+
+      await runPhase(phase, () => Math.max(totalSessionSeconds - elapsedSeconds, 0));
+      elapsedSeconds += phase.seconds;
     }
   }
 
@@ -72,8 +89,9 @@ async function runSession(durationMinutes = 1) {
   phaseLabel.textContent = 'Reset Complete';
   timerLabel.textContent = 'Nice. Press again any time.';
   breathingRing.style.transform = 'scale(1)';
+  breathingRing.style.filter = 'saturate(1) brightness(1)';
   deviceLed.style.background = 'rgba(255,255,255,0.45)';
-  deviceLed.style.boxShadow = '0 0 0 rgba(109, 199, 193, 0.7)';
+  deviceLed.style.boxShadow = '0 0 18px rgba(109, 199, 193, 0.7)';
   startButton.disabled = false;
   sideBtn.disabled = false;
   startButton.textContent = 'Start Regulate';
@@ -81,4 +99,16 @@ async function runSession(durationMinutes = 1) {
 }
 
 startButton.addEventListener('click', () => runSession(1));
-sideBtn.addEventListener('click', () => runSession(3));
+
+sideBtn.addEventListener('click', () => {
+  sideBtn.classList.add('active-press');
+
+  deviceLed.style.background = '#7fb4e8';
+  deviceLed.style.boxShadow = '0 0 35px rgba(127,180,232,0.9)';
+
+  setTimeout(() => {
+    sideBtn.classList.remove('active-press');
+  }, 600);
+
+  runSession(3);
+});

@@ -100,14 +100,21 @@ h1 {
   justify-content: center;
 }
 
-.device-body {
+.device-shell {
+  position: relative;
   width: min(100%, 340px);
+}
+
+.device-body {
+  width: 100%;
   border-radius: 26px;
   padding: 28px 24px;
   background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
   border: 1px solid rgba(255,255,255,0.08);
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
   text-align: center;
+  position: relative;
+  z-index: 2;
 }
 
 .device-led {
@@ -120,8 +127,7 @@ h1 {
   transition: background 0.6s ease, box-shadow 0.6s ease;
 }
 
-.device-button,
-.secondary-btn {
+.device-button {
   width: 100%;
   border: 0;
   border-radius: 16px;
@@ -130,32 +136,52 @@ h1 {
   font-size: 1rem;
   cursor: pointer;
   transition: transform 0.2s ease, opacity 0.2s ease, background 0.25s ease, border 0.25s ease;
-}
-
-.device-button {
   background: linear-gradient(135deg, #88d8d0, #7fb4e8);
   color: #05111d;
   font-weight: 700;
   box-shadow: 0 12px 28px rgba(127, 180, 232, 0.22);
 }
 
-.device-button:hover,
-.secondary-btn:hover {
+.device-button:hover {
   transform: translateY(-1px);
 }
 
 .device-button:disabled,
-.secondary-btn:disabled {
+.side-button:disabled {
   opacity: 0.65;
   cursor: not-allowed;
   transform: none;
 }
 
-.secondary-btn {
-  margin-top: 12px;
-  background: transparent;
-  border: 1px solid #7fb4e8;
-  color: #dbe9f5;
+.side-button {
+  position: absolute;
+  right: -18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52px;
+  height: 100px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-left: none;
+  border-radius: 0 16px 16px 0;
+  background: linear-gradient(180deg, rgba(127,180,232,0.95), rgba(94,140,190,0.95));
+  color: #04101b;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 8px 10px 24px rgba(0,0,0,0.22);
+  z-index: 1;
+  transition: transform 0.2s ease, box-shadow 0.25s ease, opacity 0.2s ease;
+}
+
+.side-button:hover {
+  transform: translateY(-50%) translateX(2px);
+  box-shadow: 10px 12px 28px rgba(0,0,0,0.28);
 }
 
 .device-caption {
@@ -310,6 +336,26 @@ h1 {
   line-height: 1.6;
 }
 
+@keyframes sidePressGlow {
+  0% {
+    box-shadow: 0 0 0 rgba(127,180,232,0);
+    transform: translateY(-50%) translateX(0);
+  }
+  30% {
+    box-shadow: 0 0 25px rgba(127,180,232,0.9),
+                0 0 50px rgba(127,180,232,0.6);
+    transform: translateY(-50%) translateX(3px);
+  }
+  100% {
+    box-shadow: 8px 10px 24px rgba(0,0,0,0.22);
+    transform: translateY(-50%) translateX(0);
+  }
+}
+
+.side-button.active-press {
+  animation: sidePressGlow 0.6s ease;
+}
+
 @media (max-width: 900px) {
   .hero-card,
   .content-grid {
@@ -333,5 +379,15 @@ h1 {
   .breathing-ring {
     width: 170px;
     height: 170px;
+  }
+
+  .device-shell {
+    width: min(100%, 320px);
+  }
+
+  .side-button {
+    right: -14px;
+    width: 46px;
+    height: 92px;
   }
 }
