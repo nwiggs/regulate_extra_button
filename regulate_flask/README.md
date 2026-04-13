@@ -19,7 +19,7 @@ This prototype simulates that experience using a web interface powered by Flask.
   - Starts a guided 4-4-4-4 breathing cycle
 
 - **Quick Reset Mode (3 minutes)**
-  - Secondary button triggers a full 3-minute session
+  - Secondary side button triggers a full 3-minute session
 
 - **Real-time visual guidance**
   - Expanding/contracting ring simulates breath pacing  
