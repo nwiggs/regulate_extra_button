@@ -46,7 +46,7 @@ function setRing(phase) {
   deviceLed.style.boxShadow = phase.shadow;
 }
 
-function setIdleState(message = 'Press the button to begin') {
+function setIdleState(message = 'Press Button to begin') {
   breathingRing.style.transform = 'scale(1)';
   breathingRing.style.filter = 'saturate(1) brightness(1)';
   deviceLed.style.background = 'rgba(255,255,255,0.45)';
