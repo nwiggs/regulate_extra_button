@@ -67,8 +67,17 @@ This concept is designed to support:
 
 ---
 
-##  Running the App (Codespaces or Local)
+## Running the App (Codespaces or Local)
 
-### 1. Install Flask
-```bash
-pip install flask
+1. Install Flask:
+   pip install flask
+
+2. Navigate to the app folder:
+   cd regulate_flask
+
+3. Run the application:
+   python app.py
+
+4. Open in browser:
+   http://localhost:5000
+   
