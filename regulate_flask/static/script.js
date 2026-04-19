@@ -46,7 +46,7 @@ function setRing(phase) {
   deviceLed.style.boxShadow = phase.shadow;
 }
 
-function setIdleState(message = 'Press Button to begin') {
+function setIdleState(message = 'Press Button to Begin') {
   breathingRing.style.transform = 'scale(1)';
   breathingRing.style.filter = 'saturate(1) brightness(1)';
   deviceLed.style.background = 'rgba(255,255,255,0.45)';
@@ -64,7 +64,7 @@ function setCompletedState() {
   deviceLed.style.background = 'rgba(255,255,255,0.45)';
   deviceLed.style.boxShadow = '0 0 18px rgba(109, 199, 193, 0.7)';
   phaseLabel.textContent = 'Reset Complete';
-  timerLabel.textContent = 'Nice. Press again any time.';
+  timerLabel.textContent = 'Nice. Press Again Any Time.';
   startButton.textContent = 'Regulate';
   running = false;
   stopRequested = false;
