@@ -90,8 +90,9 @@ async function runPhase(phase, getRemainingTime) {
   for (let remaining = phase.seconds; remaining >= 1; remaining--) {
     if (stopRequested) return false;
 
-    const totalRemaining = getRemainingTime();
+    const totalRemaining = Math.max(getRemainingTime() - (phase.seconds - remaining), 0);
     timerLabel.textContent = `${phaseLabels[phase.name]} • ${formatTime(totalRemaining)}`;
+
     await sleep(1000);
 
     if (stopRequested) return false;
